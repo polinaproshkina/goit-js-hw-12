@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 export default async function getImages(searchQuery, currentPage) {
     const key = '42692774-4141696abcbee76e8cc433895';
     const BASE_URL = 'https://pixabay.com/api/';
