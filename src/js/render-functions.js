@@ -1,8 +1,8 @@
-import { gallery } from "../main";
-import { lightbox } from "../main";
+import {gallery, lightbox}  from "../main";
+
 
 export default function galleryMarkUp(images) {
-    const markup = images
+    const markup= images
         .map(
             ({ webformatURL, tags, largeImageURL, likes, views, comments, downloads }) => {
                 return`<li class = "gallery-item">

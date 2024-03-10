@@ -1,5 +1,5 @@
 .loader.isInvisible {
-  opacity: 0;
+  display: none;
 }
 .loader {
   color: #0d0c0c;
