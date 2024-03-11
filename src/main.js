@@ -20,8 +20,8 @@ let searchQuery;
 
 searchform.addEventListener('submit', async (event) => {
     try {
+        event.preventDefault(); 
         loader.classList.remove("isInvisible");
-        event.preventDefault();
         gallery.innerHTML = "";
         const query = (event.target.elements.query.value).split(" ");
         searchQuery = query.join("+");
@@ -72,19 +72,16 @@ moreBtn.addEventListener('click', async (event) => {
         currentPage += 1;
         
         const images = await getImages(searchQuery, currentPage);
-        galleryMarkUp(images.hits);
         loader.classList.add("isInvisible");
-
-        if (currentPage>Math.round(images.totalHits / 15)) {
-            moreBtn.disabled = true;
+        galleryMarkUp(images.hits);
+        if (images.hits.length<15) { 
             moreBtn.classList.add("isInvisible");
             return iziToast.error({
                 position: "topRight",
                 message: "We're sorry, there are no more posts to load"
             });
         }
-
-    
+        
         const img = document.querySelector(".gallery-image");
         const imgSize = img.getBoundingClientRect();
         const cardHeight = imgSize.height;
