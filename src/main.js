@@ -16,6 +16,8 @@ export const gallery = document.querySelector(".gallery");
 let currentPage;
 let searchQuery;
 
+// const totalPages = Math.round(images.totalHits / 15);
+
 searchform.addEventListener('submit', async (event) => {
     try {
         loader.classList.remove("isInvisible");
@@ -46,12 +48,21 @@ searchform.addEventListener('submit', async (event) => {
                 backgroundColor: 'rgba(255, 110, 110, 1)',
                 message: 'Sorry, there are no images matching your search query. Please try again!'
             })
-        }  
+        }
+        if (currentPage >= Math.round(images.totalHits / 15)) {
+            moreBtn.disabled = true;
+            moreBtn.classList.add("isInvisible");
+            return iziToast.error({
+                position: "topRight",
+                message: "We're sorry, there are no more posts to load"
+            });
+        } 
 
     }  catch (error) {
         console.log(error);
   }
 });
+
 
 
 moreBtn.addEventListener('click', async (event) => {
@@ -64,8 +75,7 @@ moreBtn.addEventListener('click', async (event) => {
         galleryMarkUp(images.hits);
         loader.classList.add("isInvisible");
 
-        const totalPages = Math.round(images.totalHits / 15);
-        if (currentPage>totalPages) {
+        if (currentPage>Math.round(images.totalHits / 15)) {
             moreBtn.disabled = true;
             moreBtn.classList.add("isInvisible");
             return iziToast.error({
